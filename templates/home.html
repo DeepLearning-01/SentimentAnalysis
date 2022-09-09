@@ -1,0 +1,59 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Message Classifier</title>
+
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- As a heading -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Spam Message Classifier</a>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+
+
+    <div class="container">
+
+
+
+        <form action="\predict" method="post">
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Sentence</h5>
+                            <!-- Sentence -->
+                            <input type="text" class="form-control" id="text" name="text" placeholder="Your sentence:"
+                            required oninvalid="alert('Please enter the sentence');">
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <!-- Submit -->
+                <input type="submit" value="Submit" class="btn btn-secondary" style="text-align:center;">
+                <h3 style="text-align:center;">{{ prediction_text }}</h3>
+            </div>
+        </form>
+        <br>
+        <h5 style="text-align:center;">©Made with ❤️ by Dheeraj</h5>
+    </div>
+</body>
+</html>
