@@ -1,4 +1,5 @@
 import re
+import zipfile
 
 import nltk
 import numpy as np
@@ -13,7 +14,10 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 
 app = Flask(__name__)
-model = tf.keras.models.load_model('SpamClassifier.h5')
+
+with zipfile.ZipFile("SpamClassifier.zip", 'r') as zip_ref:
+    zip_ref.extractall("model")
+model = tf.keras.models.load_model('model/SpamClassifier.h5')
 
 lemmatizer = WordNetLemmatizer()
 
