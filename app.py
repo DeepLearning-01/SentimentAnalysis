@@ -1,5 +1,4 @@
 import re
-import zipfile
 
 import nltk
 import numpy as np
@@ -12,12 +11,11 @@ from nltk.stem import WordNetLemmatizer
 
 nltk.download('wordnet')
 nltk.download('omw-1.4')
+nltk.download("stopwords")
 
 app = Flask(__name__)
 
-with zipfile.ZipFile("SpamClassifier.zip", 'r') as zip_ref:
-    zip_ref.extractall("model")
-model = tf.keras.models.load_model('model/SpamClassifier.h5')
+model = tf.keras.models.load_model('SpamClassifier.h5')
 
 lemmatizer = WordNetLemmatizer()
 
@@ -39,31 +37,33 @@ def predict():
         review = re.sub('[^a-zA-Z0-9]', ' ', text)
         review = review.lower()
         review = review.split()
-        review = [lemmatizer.lemmatize(word) for word in review if word not in
-                  stopwords.words('english')]
+        review = [lemmatizer.lemmatize(word) for word in review if word
+                  not in stopwords.words('english')]
         review = ' '.join(review)
         corpus.append(review)
 
         voc_size = 10000
-        onehot_repr = [tf.keras.preprocessing.text.one_hot(words, voc_size) for
-                       words in corpus]
+        onehot_repr = [tf.keras.preprocessing.text.one_hot(
+            words, voc_size) for words in corpus]
         max_sentence_length = 78
         embedded_docs = pad_sequences(onehot_repr, padding='pre',
                                       maxlen=max_sentence_length)
-        X_final = np.array(embedded_docs)
+        x_final = np.array(embedded_docs)
 
-        prediction = model.predict([X_final])
+        prediction = model.predict([x_final])
 
+        spam_message = "The message is a spam message. Be safe."
+        ham_message = "The message is not a spam. Don't worry. . "
         output = prediction[0][0]
         if output < 0.6:
             return render_template('home.html',
-                                   prediction_text="The message is a spam message. Be safe.")
+                                   prediction_text=spam_message)
         else:
             return render_template('home.html',
-                                   prediction_text="The message is not a spam. Don't worry. . ")
+                                   prediction_text=ham_message)
 
     return render_template("home.html")
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=7777)
