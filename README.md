@@ -1,4 +1,4 @@
-Sentiment Analysis by Logistic Regression Neural Network Approach.
+Sentiment Analysis by Logistic Regression and Neural Network Approach.
 
 First Navigate to project root directory and install the requirements using
 ```bash
