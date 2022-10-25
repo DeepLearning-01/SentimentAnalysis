@@ -10,3 +10,4 @@ Then run the file app.py to host on a localhost.
 ```bash
 python app.py
 ```
+Dataset link - [here](https://www.kaggle.com/datasets/team-ai/spam-text-message-classification)
